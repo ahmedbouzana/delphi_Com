@@ -16,7 +16,7 @@ object Form_utilisateur: TForm_utilisateur
   TextHeight = 20
   object Label1: TLabel
     Left = 40
-    Top = 24
+    Top = 64
     Width = 83
     Height = 20
     Caption = 'Utilisateur'
@@ -29,7 +29,7 @@ object Form_utilisateur: TForm_utilisateur
   end
   object Label2: TLabel
     Left = 40
-    Top = 72
+    Top = 112
     Width = 169
     Height = 20
     Caption = 'Ancien mot de passe'
@@ -42,7 +42,7 @@ object Form_utilisateur: TForm_utilisateur
   end
   object Label3: TLabel
     Left = 40
-    Top = 120
+    Top = 160
     Width = 184
     Height = 20
     Caption = 'Nouveau mot de passe'
@@ -55,7 +55,7 @@ object Form_utilisateur: TForm_utilisateur
   end
   object Label4: TLabel
     Left = 40
-    Top = 168
+    Top = 208
     Width = 192
     Height = 20
     Caption = 'Confirmer mot de passe'
@@ -66,16 +66,29 @@ object Form_utilisateur: TForm_utilisateur
     Font.Style = [fsBold]
     ParentFont = False
   end
+  object Label5: TLabel
+    Left = 128
+    Top = 8
+    Width = 293
+    Height = 29
+    Caption = 'Changer le mot de passe'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -23
+    Font.Name = 'MS Sans Serif'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
   object Edit_utilisateur: TEdit
     Left = 240
-    Top = 24
+    Top = 64
     Width = 297
     Height = 28
     TabOrder = 0
   end
   object Edit_ancien: TEdit
     Left = 240
-    Top = 72
+    Top = 112
     Width = 297
     Height = 28
     PasswordChar = '*'
@@ -83,7 +96,7 @@ object Form_utilisateur: TForm_utilisateur
   end
   object Edit_nouveau: TEdit
     Left = 240
-    Top = 120
+    Top = 160
     Width = 297
     Height = 28
     PasswordChar = '*'
@@ -91,7 +104,7 @@ object Form_utilisateur: TForm_utilisateur
   end
   object Edit_confirmer: TEdit
     Left = 240
-    Top = 168
+    Top = 208
     Width = 297
     Height = 28
     PasswordChar = '*'

@@ -1,6 +1,6 @@
 object Form_utilisateur: TForm_utilisateur
-  Left = 1104
-  Top = 175
+  Left = 718
+  Top = 192
   BorderStyle = bsDialog
   Caption = 'Changer le mot de passe'
   ClientHeight = 311

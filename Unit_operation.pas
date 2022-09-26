@@ -8,14 +8,6 @@ uses
 
 type
   TForm_operation = class(TForm)
-    MainMenu1: TMainMenu;
-    Fichier1: TMenuItem;
-    Compteurs1: TMenuItem;
-    Demandesdapprovisonements1: TMenuItem;
-    N1: TMenuItem;
-    Fermer1: TMenuItem;
-    Rapports1: TMenuItem;
-    Changermotdepasse1: TMenuItem;
     DBGrid_aff: TDBGrid;
     DBEdit_num_aff: TDBEdit;
     DBComboBox_nature_aff: TDBComboBox;
@@ -60,6 +52,14 @@ type
     Edit_recherche: TEdit;
     Button_recherche_ref: TButton;
     Button_num_aff: TButton;
+    Button_imprimer: TButton;
+    Label16: TLabel;
+    DBEdit2: TDBEdit;
+    DBEdit_d_enr_aff: TDBEdit;
+    DBEdit_d_etud_aff: TDBEdit;
+    DBEdit_d_rec_aff: TDBEdit;
+    Button_recherche_cpt: TButton;
+    Label17: TLabel;
     procedure Compteurs1Click(Sender: TObject);
     procedure Fermer1Click(Sender: TObject);
     procedure Changermotdepasse1Click(Sender: TObject);
@@ -80,6 +80,11 @@ type
     procedure Button_recherche_refClick(Sender: TObject);
     procedure Button_num_affClick(Sender: TObject);    
     procedure SelectAll;
+    procedure Button_imprimerClick(Sender: TObject);
+    procedure DateTimePicker_date_affChange(Sender: TObject);
+    procedure Stoquescompteurs1Click(Sender: TObject);
+    procedure Button_recherche_cptClick(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
 
   private
     { Private declarations }
@@ -93,7 +98,8 @@ var
 implementation
 
 uses Unit_compteur, Unit_datamodule, Unit_motdepasse, Unit_login,
-  Unit_approvisionnement, DateUtils;
+  Unit_approvisionnement, DateUtils, Unit_qr_affaire, Unit_qr_dem_app,
+  Unit_type_compteur, Unit_qr_approvisionnement;
 
 {$R *.dfm}
 
@@ -125,17 +131,17 @@ end;
 
 procedure TForm_operation.Button_nouveau_abClick(Sender: TObject);
 begin
-DataModule1.ADOTable_abonne.Insert;
+DataModule1.ADOQuery_abonne.Insert;
 end;
 
 procedure TForm_operation.Button_enregistrer_abClick(Sender: TObject);
 begin
-if (DataModule1.ADOTable_abonne.State in [dsEdit,dsInsert]) then
+if (DataModule1.ADOQuery_abonne.State in [dsEdit,dsInsert]) then
     begin
       if (DBEdit_ref_ab.Text='') or (DBEdit_nom_ab.text='') or (DBEdit_prenom_ab.Text='') or (DBEdit_adr_ab.text='') then
         showmessage('Information insuffisante')
       else
-        DataModule1.ADOTable_abonne.Post;
+        DataModule1.ADOQuery_abonne.Post;
     end
   else
     showmessage('Aucune modification a enregistrer');
@@ -143,15 +149,15 @@ end;
 
 procedure TForm_operation.Button_modifier_abClick(Sender: TObject);
 begin
-DataModule1.ADOTable_abonne.Edit;
+DataModule1.ADOQuery_abonne.Edit;
 end;
 
 procedure TForm_operation.Button_supprimer_abClick(Sender: TObject);
 begin
-if(not DataModule1.ADOTable_abonne.IsEmpty) then
+if(not DataModule1.ADOQuery_abonne.IsEmpty) then
     begin
       if MessageDlg('Voulez vous supprimer cet abonné ?', mtConfirmation, [mbYes, mbNo], 0) = mrYes then
-        DataModule1.ADOTable_abonne.Delete;
+        DataModule1.ADOQuery_abonne.Delete;
     end
   else
     ShowMessage('Rien a supprimer !!');
@@ -159,12 +165,13 @@ end;
 
 procedure TForm_operation.Button_annuler_abClick(Sender: TObject);
 begin
-DataModule1.ADOTable_abonne.Cancel;
+DataModule1.ADOQuery_abonne.Cancel;
 end;
 
 procedure TForm_operation.Button_nouveau_affClick(Sender: TObject);
 var currentDate: TDateTime;
 begin
+    DataModule1.ADOQuery_operation.Cancel;
     DataModule1.ADOQuery_operation.Insert;
 
     currentDate := Now;
@@ -172,6 +179,9 @@ begin
     DateTimePicker_date_aff.Date := currentDate;
     DBEdit_num_aff.Text := StringReplace(TimeToStr(currentDate), ':', '', [rfReplaceAll, rfIgnoreCase]) ;
 
+    DataModule1.ADOQuery_abonne.Close;
+    DataModule1.ADOQuery_abonne.SQL.Text := 'select * from abonne';
+    DataModule1.ADOQuery_abonne.Open;
 
 end;
 
@@ -204,6 +214,7 @@ if(not DataModule1.ADOQuery_operation.IsEmpty) then
       DataModule1.ADOQuery_abonne.Close;
       DataModule1.ADOQuery_abonne.SQL.Text := 'select * from operation, abonne  where ref_ab_aff = ref_ab and num_aff ='''+ DBEdit_num_aff.Text+''' ';
       DataModule1.ADOQuery_abonne.Open;
+
   end;
 end;
 
@@ -249,11 +260,14 @@ end;
 procedure TForm_operation.DateTimePicker_date_etudeChange(Sender: TObject);
 begin
       DateTimePicker_date_etude.Format := '';
+      DBEdit_d_etud_aff.Text := DateToStr(DateOf(DateTimePicker_date_etude.Date));
+
 end;
 
 procedure TForm_operation.DateTimePicker_date_recChange(Sender: TObject);
 begin
     DateTimePicker_date_rec.Format := '';
+      DBEdit_d_rec_aff.Text := DateToStr(DateOf(DateTimePicker_date_rec.Date));
 end;
 
 procedure TForm_operation.Button_recherche_refClick(Sender: TObject);
@@ -291,6 +305,46 @@ begin
       DataModule1.ADOQuery_operation.Close;
       DataModule1.ADOQuery_operation.SQL.Text := 'select * from operation, type_cpt, abonne where code_type_aff = code_type and ref_ab_aff = ref_ab order by d_enr_aff desc';
       DataModule1.ADOQuery_operation.Open;
+end;
+
+procedure TForm_operation.Button_imprimerClick(Sender: TObject);
+begin
+QuickReport_affaire.Preview;
+//if(not DataModule1.ADOQuery_operation.IsEmpty) then
+    //QuickReport_affaire.Preview
+ // else
+    //ShowMessage('Rien a imprimer !!');
+end;
+
+procedure TForm_operation.DateTimePicker_date_affChange(Sender: TObject);
+begin
+DBEdit_d_enr_aff.Text := DateToStr(DateOf(DateTimePicker_date_aff.Date));
+end;
+
+procedure TForm_operation.Stoquescompteurs1Click(Sender: TObject);
+begin
+Form_stoque_cpt.Show;
+end;
+
+procedure TForm_operation.Button_recherche_cptClick(Sender: TObject);
+begin
+Form_stoque_cpt.Show;
+end;
+
+procedure TForm_operation.FormActivate(Sender: TObject);
+var currentDate: TDateTime;
+begin
+  DataModule1.ADOQuery_operation.Cancel;
+    DataModule1.ADOQuery_operation.Insert;
+
+    currentDate := Now;
+    DateTimePicker_date_aff.Format := '';
+    DateTimePicker_date_aff.Date := currentDate;
+    DBEdit_num_aff.Text := StringReplace(TimeToStr(currentDate), ':', '', [rfReplaceAll, rfIgnoreCase]) ;
+
+    DataModule1.ADOQuery_abonne.Close;
+    DataModule1.ADOQuery_abonne.SQL.Text := 'select * from abonne';
+    DataModule1.ADOQuery_abonne.Open;
 end;
 
 end.

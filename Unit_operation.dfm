@@ -1,25 +1,24 @@
 object Form_operation: TForm_operation
-  Left = 439
-  Top = 123
+  Left = 420
+  Top = 124
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Affaires'
-  ClientHeight = 793
-  ClientWidth = 1215
+  ClientHeight = 791
+  ClientWidth = 1208
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -16
   Font.Name = 'MS Sans Serif'
   Font.Style = []
-  Menu = MainMenu1
   OldCreateOrder = False
-  OnClose = FormClose
+  OnActivate = FormActivate
   PixelsPerInch = 96
   TextHeight = 20
   object Label1: TLabel
     Left = 24
-    Top = 64
+    Top = 81
     Width = 76
     Height = 20
     Caption = 'N'#176' affaire'
@@ -32,7 +31,7 @@ object Form_operation: TForm_operation
   end
   object Label2: TLabel
     Left = 24
-    Top = 104
+    Top = 121
     Width = 112
     Height = 20
     Caption = 'Nature affaire'
@@ -45,7 +44,7 @@ object Form_operation: TForm_operation
   end
   object Label3: TLabel
     Left = 24
-    Top = 144
+    Top = 161
     Width = 97
     Height = 20
     Caption = 'Date affaire'
@@ -58,7 +57,7 @@ object Form_operation: TForm_operation
   end
   object Label4: TLabel
     Left = 24
-    Top = 184
+    Top = 201
     Width = 91
     Height = 20
     Caption = 'Date '#233'tude'
@@ -71,7 +70,7 @@ object Form_operation: TForm_operation
   end
   object Label5: TLabel
     Left = 24
-    Top = 224
+    Top = 241
     Width = 120
     Height = 20
     Caption = 'Date reception'
@@ -84,7 +83,7 @@ object Form_operation: TForm_operation
   end
   object Label6: TLabel
     Left = 24
-    Top = 264
+    Top = 281
     Width = 88
     Height = 20
     Caption = 'Nom agent'
@@ -97,7 +96,7 @@ object Form_operation: TForm_operation
   end
   object Label7: TLabel
     Left = 24
-    Top = 304
+    Top = 321
     Width = 113
     Height = 20
     Caption = 'Pr'#233'nom agent'
@@ -110,7 +109,7 @@ object Form_operation: TForm_operation
   end
   object Label8: TLabel
     Left = 24
-    Top = 344
+    Top = 361
     Width = 117
     Height = 20
     Caption = 'Nom compteur'
@@ -123,7 +122,7 @@ object Form_operation: TForm_operation
   end
   object Label9: TLabel
     Left = 24
-    Top = 392
+    Top = 409
     Width = 143
     Height = 20
     Caption = 'Numero compteur'
@@ -136,7 +135,7 @@ object Form_operation: TForm_operation
   end
   object Label10: TLabel
     Left = 528
-    Top = 64
+    Top = 81
     Width = 150
     Height = 20
     Caption = 'R'#233'f'#233'rence abonn'#233
@@ -149,7 +148,7 @@ object Form_operation: TForm_operation
   end
   object Label11: TLabel
     Left = 528
-    Top = 104
+    Top = 121
     Width = 102
     Height = 20
     Caption = 'Nom abonn'#233
@@ -162,7 +161,7 @@ object Form_operation: TForm_operation
   end
   object Label12: TLabel
     Left = 888
-    Top = 104
+    Top = 121
     Width = 127
     Height = 20
     Caption = 'Pr'#233'nom abonn'#233
@@ -175,7 +174,7 @@ object Form_operation: TForm_operation
   end
   object Label13: TLabel
     Left = 528
-    Top = 144
+    Top = 161
     Width = 142
     Height = 20
     Caption = 'Addresse abonn'#233
@@ -188,7 +187,7 @@ object Form_operation: TForm_operation
   end
   object Label14: TLabel
     Left = 104
-    Top = 24
+    Top = 41
     Width = 35
     Height = 20
     Caption = 'id aff'
@@ -196,17 +195,38 @@ object Form_operation: TForm_operation
   end
   object Label15: TLabel
     Left = 608
-    Top = 32
+    Top = 49
     Width = 34
     Height = 20
     Caption = 'id ab'
     Visible = False
   end
+  object Label16: TLabel
+    Left = 272
+    Top = 41
+    Width = 34
+    Height = 20
+    Caption = 'id ab'
+    Visible = False
+  end
+  object Label17: TLabel
+    Left = 424
+    Top = 8
+    Width = 89
+    Height = 29
+    Caption = 'Affaires'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -23
+    Font.Name = 'MS Sans Serif'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
   object DBGrid_aff: TDBGrid
     Left = 16
-    Top = 496
+    Top = 513
     Width = 1185
-    Height = 289
+    Height = 273
     DataSource = DataModule1.DataSource_operation
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -221,10 +241,41 @@ object Form_operation: TForm_operation
     TitleFont.Name = 'MS Sans Serif'
     TitleFont.Style = []
     OnCellClick = DBGrid_affCellClick
+    Columns = <
+      item
+        Expanded = False
+        FieldName = 'num_aff'
+        Title.Caption = 'N'#176' affaire'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'nature_aff'
+        Title.Caption = 'Nature affaire'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'd_enr_aff'
+        Title.Caption = 'Date affaire'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'num_cpt'
+        Title.Caption = 'N'#176' compteur'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'ref_ab_aff'
+        Title.Caption = 'R'#233'f'#233'rence abonn'#233
+        Visible = True
+      end>
   end
   object DBEdit_num_aff: TDBEdit
     Left = 168
-    Top = 64
+    Top = 81
     Width = 217
     Height = 28
     DataField = 'num_aff'
@@ -239,7 +290,7 @@ object Form_operation: TForm_operation
   end
   object DBComboBox_nature_aff: TDBComboBox
     Left = 168
-    Top = 104
+    Top = 121
     Width = 217
     Height = 28
     DataField = 'nature_aff'
@@ -253,14 +304,14 @@ object Form_operation: TForm_operation
     Items.Strings = (
       'Nouveau CPT. ELEC'
       'Nouveau CPT GAZ'
-      'D'#233'placement Cpt')
+      'Remplacement Cpt')
     ParentFont = False
     TabOrder = 2
   end
   object DateTimePicker_date_aff: TDateTimePicker
-    Left = 168
-    Top = 144
-    Width = 186
+    Left = 368
+    Top = 161
+    Width = 18
     Height = 28
     Date = 44791.387474027780000000
     Format = ' '
@@ -272,11 +323,12 @@ object Form_operation: TForm_operation
     Font.Style = []
     ParentFont = False
     TabOrder = 3
+    OnChange = DateTimePicker_date_affChange
   end
   object DateTimePicker_date_etude: TDateTimePicker
-    Left = 168
-    Top = 184
-    Width = 186
+    Left = 368
+    Top = 201
+    Width = 18
     Height = 28
     Date = 44791.387587962960000000
     Format = ' '
@@ -291,9 +343,9 @@ object Form_operation: TForm_operation
     OnChange = DateTimePicker_date_etudeChange
   end
   object DateTimePicker_date_rec: TDateTimePicker
-    Left = 168
-    Top = 224
-    Width = 186
+    Left = 368
+    Top = 241
+    Width = 18
     Height = 28
     Date = 44791.387619432870000000
     Format = ' '
@@ -309,7 +361,7 @@ object Form_operation: TForm_operation
   end
   object DBEdit_nom_agent: TDBEdit
     Left = 168
-    Top = 264
+    Top = 281
     Width = 217
     Height = 28
     DataField = 'nom_agent'
@@ -324,7 +376,7 @@ object Form_operation: TForm_operation
   end
   object DBEdit_prenom_agent: TDBEdit
     Left = 168
-    Top = 304
+    Top = 321
     Width = 217
     Height = 28
     DataField = 'prenom_agent'
@@ -339,7 +391,7 @@ object Form_operation: TForm_operation
   end
   object DBLookupComboBox_code_type_aff: TDBLookupComboBox
     Left = 168
-    Top = 344
+    Top = 361
     Width = 217
     Height = 28
     DataField = 'code_type_aff'
@@ -357,8 +409,8 @@ object Form_operation: TForm_operation
   end
   object DBEdit_num_cpt: TDBEdit
     Left = 168
-    Top = 392
-    Width = 217
+    Top = 409
+    Width = 177
     Height = 28
     DataField = 'num_cpt'
     DataSource = DataModule1.DataSource_operation
@@ -372,7 +424,7 @@ object Form_operation: TForm_operation
   end
   object DBEdit_ref_ab: TDBEdit
     Left = 688
-    Top = 64
+    Top = 81
     Width = 217
     Height = 28
     DataField = 'ref_ab'
@@ -387,7 +439,7 @@ object Form_operation: TForm_operation
   end
   object DBEdit_nom_ab: TDBEdit
     Left = 688
-    Top = 104
+    Top = 121
     Width = 177
     Height = 28
     DataField = 'nom_ab'
@@ -402,7 +454,7 @@ object Form_operation: TForm_operation
   end
   object DBEdit_prenom_ab: TDBEdit
     Left = 1024
-    Top = 104
+    Top = 121
     Width = 177
     Height = 28
     DataField = 'prenom_ab'
@@ -417,7 +469,7 @@ object Form_operation: TForm_operation
   end
   object DBEdit_adr_ab: TDBEdit
     Left = 688
-    Top = 144
+    Top = 161
     Width = 513
     Height = 28
     DataField = 'adr_ab'
@@ -432,7 +484,7 @@ object Form_operation: TForm_operation
   end
   object DBGrid_ab: TDBGrid
     Left = 528
-    Top = 232
+    Top = 249
     Width = 673
     Height = 185
     DataSource = DataModule1.DataSource_abonne
@@ -448,10 +500,29 @@ object Form_operation: TForm_operation
     TitleFont.Height = -11
     TitleFont.Name = 'MS Sans Serif'
     TitleFont.Style = []
+    Columns = <
+      item
+        Expanded = False
+        FieldName = 'ref_ab'
+        Title.Caption = 'R'#233'f'#233'rence'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'nom_ab'
+        Title.Caption = 'Nom abonn'#233
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'prenom_ab'
+        Title.Caption = 'Pr'#233'nom abonn'#233
+        Visible = True
+      end>
   end
   object Button_nouveau_ab: TButton
-    Left = 648
-    Top = 184
+    Left = 528
+    Top = 201
     Width = 91
     Height = 33
     Caption = 'Nouveau'
@@ -465,8 +536,8 @@ object Form_operation: TForm_operation
     OnClick = Button_nouveau_abClick
   end
   object Button_enregistrer_ab: TButton
-    Left = 760
-    Top = 184
+    Left = 640
+    Top = 201
     Width = 97
     Height = 33
     Caption = 'Enregistrer'
@@ -480,8 +551,8 @@ object Form_operation: TForm_operation
     OnClick = Button_enregistrer_abClick
   end
   object Button_supprimer_ab: TButton
-    Left = 992
-    Top = 184
+    Left = 872
+    Top = 201
     Width = 97
     Height = 33
     Caption = 'Supprimer'
@@ -495,8 +566,8 @@ object Form_operation: TForm_operation
     OnClick = Button_supprimer_abClick
   end
   object Button_annuler_ab: TButton
-    Left = 1112
-    Top = 184
+    Left = 992
+    Top = 201
     Width = 89
     Height = 33
     Caption = 'Annuler'
@@ -510,8 +581,8 @@ object Form_operation: TForm_operation
     OnClick = Button_annuler_abClick
   end
   object Button_modifier_ab: TButton
-    Left = 880
-    Top = 184
+    Left = 760
+    Top = 201
     Width = 91
     Height = 33
     Caption = 'Modifier'
@@ -526,8 +597,8 @@ object Form_operation: TForm_operation
   end
   object DBEdit_id_aff: TDBEdit
     Left = 168
-    Top = 24
-    Width = 217
+    Top = 41
+    Width = 65
     Height = 28
     DataField = 'id_aff'
     DataSource = DataModule1.DataSource_operation
@@ -536,7 +607,7 @@ object Form_operation: TForm_operation
   end
   object Button_nouveau_aff: TButton
     Left = 16
-    Top = 448
+    Top = 465
     Width = 97
     Height = 33
     Caption = 'Nouveau'
@@ -551,7 +622,7 @@ object Form_operation: TForm_operation
   end
   object Button_enregistrer_aff: TButton
     Left = 136
-    Top = 448
+    Top = 465
     Width = 97
     Height = 33
     Caption = 'Enregistrer'
@@ -566,7 +637,7 @@ object Form_operation: TForm_operation
   end
   object Button_supprimer_aff: TButton
     Left = 256
-    Top = 448
+    Top = 465
     Width = 97
     Height = 33
     Caption = 'Supprimer'
@@ -581,7 +652,7 @@ object Form_operation: TForm_operation
   end
   object Button_annuler_aff: TButton
     Left = 376
-    Top = 448
+    Top = 465
     Width = 97
     Height = 33
     Caption = 'Annuler'
@@ -596,7 +667,7 @@ object Form_operation: TForm_operation
   end
   object DBEdit1: TDBEdit
     Left = 688
-    Top = 24
+    Top = 41
     Width = 121
     Height = 28
     DataField = 'id_ab'
@@ -605,15 +676,15 @@ object Form_operation: TForm_operation
     Visible = False
   end
   object Edit_recherche: TEdit
-    Left = 576
-    Top = 448
-    Width = 321
+    Left = 624
+    Top = 465
+    Width = 273
     Height = 28
     TabOrder = 26
   end
   object Button_recherche_ref: TButton
     Left = 912
-    Top = 432
+    Top = 441
     Width = 137
     Height = 57
     Caption = 'Rechercher par r'#233'f'#233'rence'
@@ -629,7 +700,7 @@ object Form_operation: TForm_operation
   end
   object Button_num_aff: TButton
     Left = 1064
-    Top = 432
+    Top = 441
     Width = 137
     Height = 57
     Caption = 'Rechercher par n'#176' affaire'
@@ -643,31 +714,74 @@ object Form_operation: TForm_operation
     WordWrap = True
     OnClick = Button_num_affClick
   end
-  object MainMenu1: TMainMenu
-    object Fichier1: TMenuItem
-      Caption = 'Fichier'
-      object Compteurs1: TMenuItem
-        Caption = 'Types compteurs'
-        OnClick = Compteurs1Click
-      end
-      object Demandesdapprovisonements1: TMenuItem
-        Caption = 'Demandes d'#39'approvisionnements'
-        OnClick = Demandesdapprovisonements1Click
-      end
-      object Changermotdepasse1: TMenuItem
-        Caption = 'Changer mot de passe'
-        OnClick = Changermotdepasse1Click
-      end
-      object N1: TMenuItem
-        Caption = '-'
-      end
-      object Fermer1: TMenuItem
-        Caption = 'Fermer'
-        OnClick = Fermer1Click
-      end
-    end
-    object Rapports1: TMenuItem
-      Caption = 'Rapports'
-    end
+  object Button_imprimer: TButton
+    Left = 488
+    Top = 465
+    Width = 97
+    Height = 33
+    Caption = 'Imprimer'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'MS Sans Serif'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 29
+    OnClick = Button_imprimerClick
+  end
+  object DBEdit2: TDBEdit
+    Left = 320
+    Top = 41
+    Width = 65
+    Height = 28
+    DataField = 'id_ab'
+    DataSource = DataModule1.DataSource_operation
+    TabOrder = 30
+    Visible = False
+  end
+  object DBEdit_d_enr_aff: TDBEdit
+    Left = 168
+    Top = 161
+    Width = 201
+    Height = 28
+    DataField = 'd_enr_aff'
+    DataSource = DataModule1.DataSource_operation
+    ReadOnly = True
+    TabOrder = 31
+  end
+  object DBEdit_d_etud_aff: TDBEdit
+    Left = 168
+    Top = 201
+    Width = 201
+    Height = 28
+    DataField = 'd_etud_aff'
+    DataSource = DataModule1.DataSource_operation
+    ReadOnly = True
+    TabOrder = 32
+  end
+  object DBEdit_d_rec_aff: TDBEdit
+    Left = 168
+    Top = 241
+    Width = 201
+    Height = 28
+    DataField = 'd_rec_aff'
+    DataSource = DataModule1.DataSource_operation
+    ReadOnly = True
+    TabOrder = 33
+  end
+  object Button_recherche_cpt: TButton
+    Left = 344
+    Top = 409
+    Width = 41
+    Height = 25
+    Caption = '...'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'MS Sans Serif'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 34
+    OnClick = Button_recherche_cptClick
   end
 end

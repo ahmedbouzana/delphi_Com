@@ -17,6 +17,7 @@ type
     Label3: TLabel;
     Label4: TLabel;
     Button_sauvegarder: TButton;
+    Label5: TLabel;
     procedure Button_sauvegarderClick(Sender: TObject);
   private
     { Private declarations }

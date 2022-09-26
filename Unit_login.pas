@@ -14,6 +14,7 @@ type
     Button_annuler: TButton;
     Label1: TLabel;
     Label2: TLabel;
+    Label3: TLabel;
     procedure Button_annulerClick(Sender: TObject);
     procedure Button_connecterClick(Sender: TObject);
   private
@@ -27,7 +28,7 @@ var
 
 implementation
 
-uses Unit_datamodule, Unit_motdepasse, Unit_operation;
+uses Unit_datamodule, Unit_motdepasse, Unit_operation, Unit_menu;
 
 {$R *.dfm}
 
@@ -44,7 +45,7 @@ begin
 
   if not DataModule1.ADOQuery_login.Eof then
     begin
-      Form_operation.Show;
+      Form_menu.Show;
       Form_login.Hide;
     end
   else
