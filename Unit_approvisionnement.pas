@@ -152,27 +152,19 @@ begin
 
      if DataModule1.ADOQuery_approvisionnement.State in [dsInsert] then
         begin
-        //showmessage(numero + '-'+code_type);
-        //showmessage('INSERT INTO approvisionner (code_type, num_dem_app, qte_app, num_d_sr, num_f_sr) VALUES ('+ code_type +',' + numero + ', ' + DBEdit_qte_app.Text + ', '''+DBEdit_num_d_sr.Text +''', '''+DBEdit_num_f_sr.Text  +''')');
-
-        //DataModule1.ADOQuery_approvisionnement.SQL.Text := 'INSERT INTO approvisionner (code_type, num_dem_app, qte_app, num_d_sr, num_f_sr) VALUES ('+ code_type +',' + numero + ', ' + DBEdit_qte_app.Text + ', '''+DBEdit_num_d_sr.Text +''', '''+DBEdit_num_f_sr.Text  +''')';
-
-        //DataModule1.ADOQuery_approvisionnement.Cancel;
         DBEdit_numero_app.Text := numero;
         DataModule1.ADOQuery_approvisionnement.Post;
         end
       else
       begin
-        //DataModule1.ADOQuery_approvisionnement.Edit;
-      //DataModule1.ADOQuery_approvisionnement.Post;
         DataModule1.ADOQuery_approvisionnement.SQL.Text := 'update approvisionner set qte_app = ' + DBEdit_qte_app.Text + ' where id = '+DBEdit_id_app.Text;
       DataModule1.ADOQuery_approvisionnement.ExecSQL;
-
-
-      //DataModule1.ADOQuery_approvisionnement.Close;
-      //DataModule1.ADOQuery_approvisionnement.SQL.Text := 'select approvisionner.code_type, approvisionner.num_dem_app, qte_app, num_d_sr, num_f_sr, nom_type  from approvisionner, type_cpt  where approvisionner.num_dem_app ='+ DBEdit_numero.Text +'';
-      //DataModule1.ADOQuery_approvisionnement.Open;
       end;
+
+      DataModule1.ADOQuery_approvisionnement.Close;
+      DataModule1.ADOQuery_approvisionnement.SQL.Text := 'select * '+
+      'from approvisionner, type_cpt, energie where approvisionner.code_type = type_cpt.code_type and type_cpt.code_enrg = energie.code_enrg and num_dem_app ='+ DBEdit_numero.Text;
+      DataModule1.ADOQuery_approvisionnement.Open;
     end;
 end;
 
@@ -207,7 +199,6 @@ begin
 if(not DataModule1.ADOQuery_demande_app.IsEmpty) then
     begin
       DataModule1.ADOQuery_approvisionnement.Close;
-      //DataModule1.ADOQuery_approvisionnement.SQL.Text := 'select approvisionner.code_type, approvisionner.num_dem_app, approvisionner.id, qte_app, num_d_sr, num_f_sr, nom_type '+
       DataModule1.ADOQuery_approvisionnement.SQL.Text := 'select * '+
       'from approvisionner, type_cpt, energie where approvisionner.code_type = type_cpt.code_type and type_cpt.code_enrg = energie.code_enrg and num_dem_app ='+ DBEdit_numero.Text;
       DataModule1.ADOQuery_approvisionnement.Open;

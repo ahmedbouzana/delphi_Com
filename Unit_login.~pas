@@ -28,7 +28,7 @@ var
 
 implementation
 
-uses Unit_datamodule, Unit_motdepasse, Unit_operation;
+uses Unit_datamodule, Unit_motdepasse, Unit_operation, Unit_menu;
 
 {$R *.dfm}
 

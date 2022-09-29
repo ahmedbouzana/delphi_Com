@@ -3,7 +3,7 @@ object Form_approvisionnement: TForm_approvisionnement
   Top = 318
   BorderStyle = bsSingle
   Caption = 'Demande d'#39'approvisionnement'
-  ClientHeight = 502
+  ClientHeight = 537
   ClientWidth = 1104
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -17,7 +17,7 @@ object Form_approvisionnement: TForm_approvisionnement
   TextHeight = 20
   object Label1: TLabel
     Left = 24
-    Top = 24
+    Top = 48
     Width = 302
     Height = 20
     Caption = 'Num'#233'ro demande d'#39'aprovisionnement'
@@ -30,7 +30,7 @@ object Form_approvisionnement: TForm_approvisionnement
   end
   object Label2: TLabel
     Left = 24
-    Top = 64
+    Top = 88
     Width = 275
     Height = 20
     Caption = 'Date demande approvisionnement'
@@ -43,7 +43,7 @@ object Form_approvisionnement: TForm_approvisionnement
   end
   object Label4: TLabel
     Left = 568
-    Top = 64
+    Top = 88
     Width = 76
     Height = 20
     Caption = 'Nom type'
@@ -56,7 +56,7 @@ object Form_approvisionnement: TForm_approvisionnement
   end
   object Label9: TLabel
     Left = 576
-    Top = 104
+    Top = 128
     Width = 70
     Height = 20
     Caption = 'Quantit'#233
@@ -69,20 +69,33 @@ object Form_approvisionnement: TForm_approvisionnement
   end
   object Label3: TLabel
     Left = 568
-    Top = 24
-    Width = 435
+    Top = 48
+    Width = 389
     Height = 24
     Caption = 'Ajouter des compteurs '#224' l'#39'approvisionnement :'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -19
     Font.Name = 'MS Sans Serif'
-    Font.Style = [fsBold]
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label5: TLabel
+    Left = 376
+    Top = 8
+    Width = 334
+    Height = 29
+    Caption = 'Demande d'#39'approvisionnement'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -23
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
     ParentFont = False
   end
   object DBGrid_demenade_approvisionnement: TDBGrid
     Left = 16
-    Top = 192
+    Top = 216
     Width = 481
     Height = 305
     DataSource = DataModule1.DataSource_demande_approvisionnement
@@ -110,7 +123,7 @@ object Form_approvisionnement: TForm_approvisionnement
   end
   object DBEdit_numero: TDBEdit
     Left = 336
-    Top = 24
+    Top = 48
     Width = 161
     Height = 28
     DataField = 'num_dem_app'
@@ -120,7 +133,7 @@ object Form_approvisionnement: TForm_approvisionnement
   end
   object DBGrid_add_cpt: TDBGrid
     Left = 568
-    Top = 192
+    Top = 216
     Width = 529
     Height = 305
     DataSource = DataModule1.DataSource_approvisionnement
@@ -152,7 +165,7 @@ object Form_approvisionnement: TForm_approvisionnement
   end
   object DBEdit_qte_app: TDBEdit
     Left = 656
-    Top = 104
+    Top = 128
     Width = 145
     Height = 28
     DataField = 'qte_app'
@@ -161,7 +174,7 @@ object Form_approvisionnement: TForm_approvisionnement
   end
   object Button_ajouter_cpt: TButton
     Left = 728
-    Top = 152
+    Top = 176
     Width = 113
     Height = 33
     Caption = 'Ajouter'
@@ -176,7 +189,7 @@ object Form_approvisionnement: TForm_approvisionnement
   end
   object Button_enregistrer: TButton
     Left = 128
-    Top = 152
+    Top = 176
     Width = 107
     Height = 33
     Caption = 'Enregistrer'
@@ -191,7 +204,7 @@ object Form_approvisionnement: TForm_approvisionnement
   end
   object Button_supprimer: TButton
     Left = 248
-    Top = 152
+    Top = 176
     Width = 113
     Height = 33
     Caption = 'Supprimer'
@@ -206,7 +219,7 @@ object Form_approvisionnement: TForm_approvisionnement
   end
   object DateTimePicker_date: TDateTimePicker
     Left = 480
-    Top = 64
+    Top = 88
     Width = 17
     Height = 28
     Date = 44780.419689479170000000
@@ -216,7 +229,7 @@ object Form_approvisionnement: TForm_approvisionnement
   end
   object Button_nouveau: TButton
     Left = 16
-    Top = 152
+    Top = 176
     Width = 97
     Height = 33
     Caption = 'Nouveau'
@@ -231,7 +244,7 @@ object Form_approvisionnement: TForm_approvisionnement
   end
   object Button_nouveau_cpt: TButton
     Left = 568
-    Top = 152
+    Top = 176
     Width = 145
     Height = 33
     Caption = 'Nouveau'
@@ -246,7 +259,7 @@ object Form_approvisionnement: TForm_approvisionnement
   end
   object Button_supprimer_cpt: TButton
     Left = 856
-    Top = 152
+    Top = 176
     Width = 121
     Height = 33
     Caption = 'Supprimer'
@@ -261,7 +274,7 @@ object Form_approvisionnement: TForm_approvisionnement
   end
   object DBLookupComboBox_nom_type: TDBLookupComboBox
     Left = 656
-    Top = 64
+    Top = 88
     Width = 145
     Height = 28
     DataField = 'code_type'
@@ -273,7 +286,7 @@ object Form_approvisionnement: TForm_approvisionnement
   end
   object DBEdit_numero_app: TDBEdit
     Left = 896
-    Top = 56
+    Top = 80
     Width = 65
     Height = 28
     DataField = 'num_dem_app'
@@ -284,7 +297,7 @@ object Form_approvisionnement: TForm_approvisionnement
   end
   object DBEdit_id_app: TDBEdit
     Left = 976
-    Top = 56
+    Top = 80
     Width = 57
     Height = 28
     DataField = 'id'
@@ -294,7 +307,7 @@ object Form_approvisionnement: TForm_approvisionnement
   end
   object Button_annuler_cpt: TButton
     Left = 992
-    Top = 152
+    Top = 176
     Width = 97
     Height = 33
     Caption = 'Annuler'
@@ -309,7 +322,7 @@ object Form_approvisionnement: TForm_approvisionnement
   end
   object Button_imprimer: TButton
     Left = 368
-    Top = 152
+    Top = 176
     Width = 129
     Height = 33
     Caption = 'Imprimer'
@@ -324,7 +337,7 @@ object Form_approvisionnement: TForm_approvisionnement
   end
   object DBEdit_date_dem_app: TDBEdit
     Left = 336
-    Top = 64
+    Top = 88
     Width = 145
     Height = 28
     DataField = 'date_dem_app'

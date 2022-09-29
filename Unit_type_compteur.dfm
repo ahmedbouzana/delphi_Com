@@ -11,11 +11,12 @@ object Form_stoque_cpt: TForm_stoque_cpt
   Font.Name = 'MS Sans Serif'
   Font.Style = []
   OldCreateOrder = False
+  OnActivate = FormActivate
   PixelsPerInch = 96
   TextHeight = 20
   object Label7: TLabel
-    Left = 24
-    Top = 104
+    Left = 16
+    Top = 144
     Width = 132
     Height = 20
     Caption = 'Num'#233'ro de s'#233'rie'
@@ -27,8 +28,8 @@ object Form_stoque_cpt: TForm_stoque_cpt
     ParentFont = False
   end
   object Label4: TLabel
-    Left = 24
-    Top = 56
+    Left = 16
+    Top = 96
     Width = 76
     Height = 20
     Caption = 'Nom type'
@@ -42,15 +43,23 @@ object Form_stoque_cpt: TForm_stoque_cpt
   object Label1: TLabel
     Left = 304
     Top = 8
-    Width = 213
+    Width = 195
     Height = 29
-    Caption = 'Stoque compteurs'
+    Caption = 'Stock compteurs'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -23
     Font.Name = 'MS Sans Serif'
     Font.Style = [fsBold]
     ParentFont = False
+  end
+  object Label2: TLabel
+    Left = 160
+    Top = 48
+    Width = 12
+    Height = 20
+    Caption = 'id'
+    Visible = False
   end
   object DBGrid1: TDBGrid
     Left = 16
@@ -64,6 +73,7 @@ object Form_stoque_cpt: TForm_stoque_cpt
     TitleFont.Height = -16
     TitleFont.Name = 'MS Sans Serif'
     TitleFont.Style = []
+    OnDblClick = DBGrid1DblClick
     Columns = <
       item
         Expanded = False
@@ -75,6 +85,7 @@ object Form_stoque_cpt: TForm_stoque_cpt
         Expanded = False
         FieldName = 'num_ser'
         Title.Caption = 'N'#176' serie'
+        Width = 195
         Visible = True
       end
       item
@@ -166,17 +177,18 @@ object Form_stoque_cpt: TForm_stoque_cpt
     OnClick = Button_annulerClick
   end
   object DBEdit_num_sr: TDBEdit
-    Left = 192
-    Top = 104
+    Left = 184
+    Top = 144
     Width = 209
     Height = 28
     DataField = 'num_ser'
     DataSource = DataModule1.DataSource_stock_cpt
+    MaxLength = 12
     TabOrder = 6
   end
   object DBLookupComboBox_nom_type: TDBLookupComboBox
-    Left = 192
-    Top = 56
+    Left = 184
+    Top = 96
     Width = 209
     Height = 28
     DataField = 'code_type'
@@ -191,6 +203,7 @@ object Form_stoque_cpt: TForm_stoque_cpt
     Top = 224
     Width = 225
     Height = 28
+    MaxLength = 15
     TabOrder = 8
   end
   object Button_recherche_n_serie: TButton
@@ -224,5 +237,15 @@ object Form_stoque_cpt: TForm_stoque_cpt
     TabOrder = 10
     WordWrap = True
     OnClick = Button_recherche_referenceClick
+  end
+  object DBEdit_id: TDBEdit
+    Left = 184
+    Top = 48
+    Width = 121
+    Height = 28
+    DataField = 'id'
+    DataSource = DataModule1.DataSource_stock_cpt
+    TabOrder = 11
+    Visible = False
   end
 end

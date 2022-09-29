@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, Menus, StdCtrls;
+  Dialogs, Menus, StdCtrls, jpeg, ExtCtrls;
 
 type
   TForm_menu = class(TForm)
@@ -23,6 +23,8 @@ type
     Affaires1: TMenuItem;
     Button5: TButton;
     Label1: TLabel;
+    Image1: TImage;
+    Image2: TImage;
     procedure Stoquescompteurs1Click(Sender: TObject);
     procedure Demandesdapprovisonements1Click(Sender: TObject);
     procedure Compteurs1Click(Sender: TObject);

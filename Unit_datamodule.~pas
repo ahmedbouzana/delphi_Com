@@ -19,12 +19,11 @@ type
     ADOTable_energie: TADOTable;
     DataSource_energie: TDataSource;
     DataSource_abonne: TDataSource;
-    ADOTable_abonne: TADOTable;
-    DataSource_operation: TDataSource;
-    ADOQuery_operation: TADOQuery;
     ADOQuery_abonne: TADOQuery;
     DataSource_stock_cpt: TDataSource;
     ADOQuery_stock_cpt: TADOQuery;
+    ADOQuery_affaire: TADOQuery;
+    DataSource_affaire: TDataSource;
   private
     { Private declarations }
   public

@@ -22,12 +22,6 @@ type
     QRShape3: TQRShape;
     PageFooterBand1: TQRBand;
     QRLabel5: TQRLabel;
-    SummaryBand1: TQRBand;
-    QRShape10: TQRShape;
-    QRShape11: TQRShape;
-    QRShape12: TQRShape;
-    QRLabel12: TQRLabel;
-    QRExpr1: TQRExpr;
     QRShape13: TQRShape;
     QRShape14: TQRShape;
     QRShape15: TQRShape;

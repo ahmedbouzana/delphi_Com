@@ -1,9 +1,8 @@
 object DataModule1: TDataModule1
   OldCreateOrder = False
-  Left = 572
-  Top = 357
+  Top = 383
   Height = 456
-  Width = 1038
+  Width = 1024
   object ADOConnection1: TADOConnection
     Connected = True
     ConnectionString = 
@@ -48,6 +47,7 @@ object DataModule1: TDataModule1
     Top = 104
   end
   object ADOQuery_approvisionnement: TADOQuery
+    Active = True
     Connection = ADOConnection1
     CursorType = ctStatic
     Parameters = <>
@@ -55,7 +55,7 @@ object DataModule1: TDataModule1
       
         'select * from approvisionner, type_cpt, energie where approvisio' +
         'nner.code_type = type_cpt.code_type and type_cpt.code_enrg = ene' +
-        'rgie.code_enrg and approvisionner.num_dem_app = 113704')
+        'rgie.code_enrg')
     Left = 672
     Top = 104
   end
@@ -95,24 +95,8 @@ object DataModule1: TDataModule1
     Left = 952
     Top = 170
   end
-  object DataSource_operation: TDataSource
-    DataSet = ADOQuery_operation
-    Left = 1080
-    Top = 170
-  end
-  object ADOQuery_operation: TADOQuery
-    Active = True
-    Connection = ADOConnection1
-    CursorType = ctStatic
-    Parameters = <>
-    SQL.Strings = (
-      
-        'select * from operation, type_cpt, abonne where code_type_aff = ' +
-        'code_type and ref_ab_aff = ref_ab;')
-    Left = 1080
-    Top = 112
-  end
   object ADOQuery_abonne: TADOQuery
+    Active = True
     Connection = ADOConnection1
     CursorType = ctStatic
     Parameters = <>
@@ -134,9 +118,26 @@ object DataModule1: TDataModule1
     SQL.Strings = (
       
         'select * from stock_cpt left join operation on num_ser = num_cpt' +
-        ' left join type_cpt  on stock_cpt .code_type =  type_cpt.code_ty' +
-        'pe ')
+        ' left join type_cpt  on stock_cpt.code_type =  type_cpt.code_typ' +
+        'e ')
     Left = 312
     Top = 104
+  end
+  object ADOQuery_affaire: TADOQuery
+    Active = True
+    Connection = ADOConnection1
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      
+        'select * from operation left join stock_cpt on num_cpt = num_ser' +
+        ' left join abonne on ref_ab_aff = ref_ab;')
+    Left = 296
+    Top = 248
+  end
+  object DataSource_affaire: TDataSource
+    DataSet = ADOQuery_affaire
+    Left = 307
+    Top = 304
   end
 end

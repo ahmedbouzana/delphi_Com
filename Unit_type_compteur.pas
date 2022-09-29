@@ -22,6 +22,8 @@ type
     Button_recherche_n_serie: TButton;
     Button_recherche_reference: TButton;
     Label1: TLabel;
+    Label2: TLabel;
+    DBEdit_id: TDBEdit;
     procedure Button_ajouterClick(Sender: TObject);
     procedure Button_enregistrerClick(Sender: TObject);
     procedure Button_modifierClick(Sender: TObject);
@@ -30,6 +32,8 @@ type
     procedure Button_recherche_n_serieClick(Sender: TObject);
     procedure SelectAll;
     procedure Button_recherche_referenceClick(Sender: TObject);
+    procedure DBGrid1DblClick(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -41,7 +45,7 @@ var
 
 implementation
 
-uses Unit_datamodule;
+uses Unit_datamodule, Unit_operation;
 
 {$R *.dfm}
 
@@ -51,16 +55,31 @@ DataModule1.ADOQuery_stock_cpt.Insert;
 end;
 
 procedure TForm_stoque_cpt.Button_enregistrerClick(Sender: TObject);
+var
+
+code_type:string;
 begin
-if (DataModule1.ADOQuery_stock_cpt.State in [dsEdit,dsInsert]) then
-    begin
-      if (DBEdit_num_sr.Text='') or (DBLookupComboBox_nom_type.Text='') then
-        showmessage('Information insuffisante')
-      else
-        DataModule1.ADOQuery_stock_cpt.Post;
-    end
+  if (DBEdit_num_sr.Text='') or (DBLookupComboBox_nom_type.Text='') then
+    showmessage('Veuillez completer les informations !!')
   else
-    showmessage('Aucune modification a enregistrer');
+    begin
+
+    code_type := DBLookupComboBox_nom_type.KeyValue;
+
+     if DataModule1.ADOQuery_stock_cpt.State in [dsInsert] then
+        begin
+        DataModule1.ADOQuery_stock_cpt.Post;
+        end
+      else
+      begin
+        DataModule1.ADOQuery_approvisionnement.SQL.Text := 'update stock_cpt set num_ser = ''' + DBEdit_num_sr.Text + ''', code_type = '+ code_type +' where id = '+DBEdit_id.Text;
+      DataModule1.ADOQuery_approvisionnement.ExecSQL;
+      end;
+
+          DataModule1.ADOQuery_stock_cpt.Close;
+          DataModule1.ADOQuery_stock_cpt.SQL.Text := 'select * from stock_cpt left join operation on num_ser = num_cpt left join type_cpt  on stock_cpt.code_type =  type_cpt.code_type';
+          DataModule1.ADOQuery_stock_cpt.Open;
+    end;
 end;
 
 procedure TForm_stoque_cpt.Button_modifierClick(Sender: TObject);
@@ -70,10 +89,20 @@ end;
 
 procedure TForm_stoque_cpt.Button_supprimerClick(Sender: TObject);
 begin
-if(not DataModule1.ADOQuery_stock_cpt.IsEmpty) then
+if(DBEdit_num_sr.Text <> '') then
+  begin
+  if(not DataModule1.ADOQuery_stock_cpt.IsEmpty) then
     begin
-      if MessageDlg('Vouler vous supprimer ce compteur ?', mtConfirmation, [mbYes, mbNo], 0) = mrYes then
-        DataModule1.ADOQuery_stock_cpt.Delete;
+      if MessageDlg('Voulez vous supprimer ce compteur du stoque ?', mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+        begin
+          DataModule1.ADOQuery_stock_cpt.SQL.Text := 'delete from stock_cpt where num_ser = '''+ DBEdit_num_sr.Text +''' ';
+          DataModule1.ADOQuery_stock_cpt.ExecSQL;
+
+          DataModule1.ADOQuery_stock_cpt.Close;
+          DataModule1.ADOQuery_stock_cpt.SQL.Text := 'select * from stock_cpt left join operation on num_ser = num_cpt left join type_cpt  on stock_cpt.code_type =  type_cpt.code_type';
+          DataModule1.ADOQuery_stock_cpt.Open;
+        end
+    end;
     end
   else
     ShowMessage('Rien a supprimer !!');
@@ -120,6 +149,18 @@ begin
       DataModule1.ADOQuery_stock_cpt.SQL.Text := 'select * from stock_cpt left join operation on num_ser = num_cpt left join type_cpt  on stock_cpt .code_type =  type_cpt.code_type  where ref_ab_aff = '''+ recherche +''' ';
       DataModule1.ADOQuery_stock_cpt.Open;
      end;
+end;
+
+procedure TForm_stoque_cpt.DBGrid1DblClick(Sender: TObject);
+begin
+  Form_operation.DBEdit_num_cpt.Text := DBEdit_num_sr.Text;
+end;
+
+procedure TForm_stoque_cpt.FormActivate(Sender: TObject);
+begin
+DataModule1.ADOQuery_stock_cpt.Close;
+          DataModule1.ADOQuery_stock_cpt.SQL.Text := 'select * from stock_cpt left join operation on num_ser = num_cpt left join type_cpt  on stock_cpt.code_type =  type_cpt.code_type';
+          DataModule1.ADOQuery_stock_cpt.Open;
 end;
 
 end.

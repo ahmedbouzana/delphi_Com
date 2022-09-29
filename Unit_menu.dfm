@@ -2029,7 +2029,7 @@ object Form_menu: TForm_menu
     Top = 96
     Width = 249
     Height = 97
-    Caption = 'Stoques compteurs'
+    Caption = 'Stocks compteurs'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -23
@@ -2108,7 +2108,7 @@ object Form_menu: TForm_menu
         OnClick = Affaires1Click
       end
       object Stoquescompteurs1: TMenuItem
-        Caption = 'Stoques compteurs'
+        Caption = 'Stocks compteurs'
         OnClick = Stoquescompteurs1Click
       end
       object Demandesdapprovisonements1: TMenuItem

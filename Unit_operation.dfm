@@ -1,11 +1,11 @@
 object Form_operation: TForm_operation
-  Left = 420
-  Top = 124
+  Left = 315
+  Top = 117
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Affaires'
   ClientHeight = 791
-  ClientWidth = 1208
+  ClientWidth = 1211
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -13,7 +13,6 @@ object Form_operation: TForm_operation
   Font.Name = 'MS Sans Serif'
   Font.Style = []
   OldCreateOrder = False
-  OnActivate = FormActivate
   PixelsPerInch = 96
   TextHeight = 20
   object Label1: TLabel
@@ -222,12 +221,13 @@ object Form_operation: TForm_operation
     Font.Style = [fsBold]
     ParentFont = False
   end
-  object DBGrid_aff: TDBGrid
-    Left = 16
-    Top = 513
-    Width = 1185
-    Height = 273
-    DataSource = DataModule1.DataSource_operation
+  object DBEdit_num_aff: TDBEdit
+    Left = 168
+    Top = 81
+    Width = 217
+    Height = 28
+    DataField = 'num_aff'
+    DataSource = DataModule1.DataSource_affaire
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -16
@@ -235,58 +235,6 @@ object Form_operation: TForm_operation
     Font.Style = []
     ParentFont = False
     TabOrder = 0
-    TitleFont.Charset = DEFAULT_CHARSET
-    TitleFont.Color = clWindowText
-    TitleFont.Height = -11
-    TitleFont.Name = 'MS Sans Serif'
-    TitleFont.Style = []
-    OnCellClick = DBGrid_affCellClick
-    Columns = <
-      item
-        Expanded = False
-        FieldName = 'num_aff'
-        Title.Caption = 'N'#176' affaire'
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'nature_aff'
-        Title.Caption = 'Nature affaire'
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'd_enr_aff'
-        Title.Caption = 'Date affaire'
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'num_cpt'
-        Title.Caption = 'N'#176' compteur'
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'ref_ab_aff'
-        Title.Caption = 'R'#233'f'#233'rence abonn'#233
-        Visible = True
-      end>
-  end
-  object DBEdit_num_aff: TDBEdit
-    Left = 168
-    Top = 81
-    Width = 217
-    Height = 28
-    DataField = 'num_aff'
-    DataSource = DataModule1.DataSource_operation
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -16
-    Font.Name = 'MS Sans Serif'
-    Font.Style = []
-    ParentFont = False
-    TabOrder = 1
   end
   object DBComboBox_nature_aff: TDBComboBox
     Left = 168
@@ -294,7 +242,7 @@ object Form_operation: TForm_operation
     Width = 217
     Height = 28
     DataField = 'nature_aff'
-    DataSource = DataModule1.DataSource_operation
+    DataSource = DataModule1.DataSource_affaire
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -16
@@ -306,7 +254,7 @@ object Form_operation: TForm_operation
       'Nouveau CPT GAZ'
       'Remplacement Cpt')
     ParentFont = False
-    TabOrder = 2
+    TabOrder = 1
   end
   object DateTimePicker_date_aff: TDateTimePicker
     Left = 368
@@ -322,7 +270,7 @@ object Form_operation: TForm_operation
     Font.Name = 'MS Sans Serif'
     Font.Style = []
     ParentFont = False
-    TabOrder = 3
+    TabOrder = 2
     OnChange = DateTimePicker_date_affChange
   end
   object DateTimePicker_date_etude: TDateTimePicker
@@ -339,7 +287,7 @@ object Form_operation: TForm_operation
     Font.Name = 'MS Sans Serif'
     Font.Style = []
     ParentFont = False
-    TabOrder = 4
+    TabOrder = 3
     OnChange = DateTimePicker_date_etudeChange
   end
   object DateTimePicker_date_rec: TDateTimePicker
@@ -356,7 +304,7 @@ object Form_operation: TForm_operation
     Font.Name = 'MS Sans Serif'
     Font.Style = []
     ParentFont = False
-    TabOrder = 5
+    TabOrder = 4
     OnChange = DateTimePicker_date_recChange
   end
   object DBEdit_nom_agent: TDBEdit
@@ -365,7 +313,22 @@ object Form_operation: TForm_operation
     Width = 217
     Height = 28
     DataField = 'nom_agent'
-    DataSource = DataModule1.DataSource_operation
+    DataSource = DataModule1.DataSource_affaire
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 5
+  end
+  object DBEdit_prenom_agent: TDBEdit
+    Left = 168
+    Top = 321
+    Width = 217
+    Height = 28
+    DataField = 'prenom_agent'
+    DataSource = DataModule1.DataSource_affaire
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -16
@@ -374,28 +337,13 @@ object Form_operation: TForm_operation
     ParentFont = False
     TabOrder = 6
   end
-  object DBEdit_prenom_agent: TDBEdit
-    Left = 168
-    Top = 321
-    Width = 217
-    Height = 28
-    DataField = 'prenom_agent'
-    DataSource = DataModule1.DataSource_operation
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -16
-    Font.Name = 'MS Sans Serif'
-    Font.Style = []
-    ParentFont = False
-    TabOrder = 7
-  end
   object DBLookupComboBox_code_type_aff: TDBLookupComboBox
     Left = 168
     Top = 361
     Width = 217
     Height = 28
     DataField = 'code_type_aff'
-    DataSource = DataModule1.DataSource_operation
+    DataSource = DataModule1.DataSource_affaire
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -16
@@ -405,7 +353,7 @@ object Form_operation: TForm_operation
     ListField = 'nom_type'
     ListSource = DataModule1.DataSource_type_compteur
     ParentFont = False
-    TabOrder = 8
+    TabOrder = 7
   end
   object DBEdit_num_cpt: TDBEdit
     Left = 168
@@ -413,14 +361,15 @@ object Form_operation: TForm_operation
     Width = 177
     Height = 28
     DataField = 'num_cpt'
-    DataSource = DataModule1.DataSource_operation
+    DataSource = DataModule1.DataSource_affaire
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -16
     Font.Name = 'MS Sans Serif'
     Font.Style = []
+    MaxLength = 12
     ParentFont = False
-    TabOrder = 9
+    TabOrder = 8
   end
   object DBEdit_ref_ab: TDBEdit
     Left = 688
@@ -435,7 +384,7 @@ object Form_operation: TForm_operation
     Font.Name = 'MS Sans Serif'
     Font.Style = []
     ParentFont = False
-    TabOrder = 10
+    TabOrder = 9
   end
   object DBEdit_nom_ab: TDBEdit
     Left = 688
@@ -450,7 +399,7 @@ object Form_operation: TForm_operation
     Font.Name = 'MS Sans Serif'
     Font.Style = []
     ParentFont = False
-    TabOrder = 11
+    TabOrder = 10
   end
   object DBEdit_prenom_ab: TDBEdit
     Left = 1024
@@ -465,7 +414,7 @@ object Form_operation: TForm_operation
     Font.Name = 'MS Sans Serif'
     Font.Style = []
     ParentFont = False
-    TabOrder = 12
+    TabOrder = 11
   end
   object DBEdit_adr_ab: TDBEdit
     Left = 688
@@ -480,7 +429,7 @@ object Form_operation: TForm_operation
     Font.Name = 'MS Sans Serif'
     Font.Style = []
     ParentFont = False
-    TabOrder = 13
+    TabOrder = 12
   end
   object DBGrid_ab: TDBGrid
     Left = 528
@@ -494,7 +443,7 @@ object Form_operation: TForm_operation
     Font.Name = 'MS Sans Serif'
     Font.Style = []
     ParentFont = False
-    TabOrder = 14
+    TabOrder = 13
     TitleFont.Charset = DEFAULT_CHARSET
     TitleFont.Color = clWindowText
     TitleFont.Height = -11
@@ -532,7 +481,7 @@ object Form_operation: TForm_operation
     Font.Name = 'MS Sans Serif'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 15
+    TabOrder = 14
     OnClick = Button_nouveau_abClick
   end
   object Button_enregistrer_ab: TButton
@@ -547,7 +496,7 @@ object Form_operation: TForm_operation
     Font.Name = 'MS Sans Serif'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 16
+    TabOrder = 15
     OnClick = Button_enregistrer_abClick
   end
   object Button_supprimer_ab: TButton
@@ -562,7 +511,7 @@ object Form_operation: TForm_operation
     Font.Name = 'MS Sans Serif'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 17
+    TabOrder = 16
     OnClick = Button_supprimer_abClick
   end
   object Button_annuler_ab: TButton
@@ -577,7 +526,7 @@ object Form_operation: TForm_operation
     Font.Name = 'MS Sans Serif'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 18
+    TabOrder = 17
     OnClick = Button_annuler_abClick
   end
   object Button_modifier_ab: TButton
@@ -592,7 +541,7 @@ object Form_operation: TForm_operation
     Font.Name = 'MS Sans Serif'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 19
+    TabOrder = 18
     OnClick = Button_modifier_abClick
   end
   object DBEdit_id_aff: TDBEdit
@@ -601,8 +550,8 @@ object Form_operation: TForm_operation
     Width = 65
     Height = 28
     DataField = 'id_aff'
-    DataSource = DataModule1.DataSource_operation
-    TabOrder = 20
+    DataSource = DataModule1.DataSource_affaire
+    TabOrder = 19
     Visible = False
   end
   object Button_nouveau_aff: TButton
@@ -617,7 +566,7 @@ object Form_operation: TForm_operation
     Font.Name = 'MS Sans Serif'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 21
+    TabOrder = 20
     OnClick = Button_nouveau_affClick
   end
   object Button_enregistrer_aff: TButton
@@ -632,7 +581,7 @@ object Form_operation: TForm_operation
     Font.Name = 'MS Sans Serif'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 22
+    TabOrder = 21
     OnClick = Button_enregistrer_affClick
   end
   object Button_supprimer_aff: TButton
@@ -647,7 +596,7 @@ object Form_operation: TForm_operation
     Font.Name = 'MS Sans Serif'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 23
+    TabOrder = 22
     OnClick = Button_supprimer_affClick
   end
   object Button_annuler_aff: TButton
@@ -662,7 +611,7 @@ object Form_operation: TForm_operation
     Font.Name = 'MS Sans Serif'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 24
+    TabOrder = 23
     OnClick = Button_annuler_affClick
   end
   object DBEdit1: TDBEdit
@@ -672,7 +621,7 @@ object Form_operation: TForm_operation
     Height = 28
     DataField = 'id_ab'
     DataSource = DataModule1.DataSource_abonne
-    TabOrder = 25
+    TabOrder = 24
     Visible = False
   end
   object Edit_recherche: TEdit
@@ -680,7 +629,7 @@ object Form_operation: TForm_operation
     Top = 465
     Width = 273
     Height = 28
-    TabOrder = 26
+    TabOrder = 25
   end
   object Button_recherche_ref: TButton
     Left = 912
@@ -694,7 +643,7 @@ object Form_operation: TForm_operation
     Font.Name = 'MS Sans Serif'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 27
+    TabOrder = 26
     WordWrap = True
     OnClick = Button_recherche_refClick
   end
@@ -710,7 +659,7 @@ object Form_operation: TForm_operation
     Font.Name = 'MS Sans Serif'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 28
+    TabOrder = 27
     WordWrap = True
     OnClick = Button_num_affClick
   end
@@ -726,7 +675,7 @@ object Form_operation: TForm_operation
     Font.Name = 'MS Sans Serif'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 29
+    TabOrder = 28
     OnClick = Button_imprimerClick
   end
   object DBEdit2: TDBEdit
@@ -735,8 +684,8 @@ object Form_operation: TForm_operation
     Width = 65
     Height = 28
     DataField = 'id_ab'
-    DataSource = DataModule1.DataSource_operation
-    TabOrder = 30
+    DataSource = DataModule1.DataSource_affaire
+    TabOrder = 29
     Visible = False
   end
   object DBEdit_d_enr_aff: TDBEdit
@@ -745,9 +694,9 @@ object Form_operation: TForm_operation
     Width = 201
     Height = 28
     DataField = 'd_enr_aff'
-    DataSource = DataModule1.DataSource_operation
+    DataSource = DataModule1.DataSource_affaire
     ReadOnly = True
-    TabOrder = 31
+    TabOrder = 30
   end
   object DBEdit_d_etud_aff: TDBEdit
     Left = 168
@@ -755,9 +704,9 @@ object Form_operation: TForm_operation
     Width = 201
     Height = 28
     DataField = 'd_etud_aff'
-    DataSource = DataModule1.DataSource_operation
+    DataSource = DataModule1.DataSource_affaire
     ReadOnly = True
-    TabOrder = 32
+    TabOrder = 31
   end
   object DBEdit_d_rec_aff: TDBEdit
     Left = 168
@@ -765,9 +714,9 @@ object Form_operation: TForm_operation
     Width = 201
     Height = 28
     DataField = 'd_rec_aff'
-    DataSource = DataModule1.DataSource_operation
+    DataSource = DataModule1.DataSource_affaire
     ReadOnly = True
-    TabOrder = 33
+    TabOrder = 32
   end
   object Button_recherche_cpt: TButton
     Left = 344
@@ -781,7 +730,53 @@ object Form_operation: TForm_operation
     Font.Name = 'MS Sans Serif'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 34
+    TabOrder = 33
     OnClick = Button_recherche_cptClick
+  end
+  object DBGrid_affaire: TDBGrid
+    Left = 16
+    Top = 512
+    Width = 1185
+    Height = 265
+    DataSource = DataModule1.DataSource_affaire
+    TabOrder = 34
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -16
+    TitleFont.Name = 'MS Sans Serif'
+    TitleFont.Style = []
+    OnCellClick = DBGrid_affaireCellClick
+    Columns = <
+      item
+        Expanded = False
+        FieldName = 'num_aff'
+        Title.Caption = 'N'#176' affaire'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'nature_aff'
+        Title.Caption = 'Nature affaire'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'd_enr_aff'
+        Title.Caption = 'Date affaire'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'num_cpt'
+        Title.Caption = 'N'#176' compteur'
+        Width = 196
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'ref_ab_aff'
+        Title.Caption = 'R'#233'f'#233'rence abonn'#233
+        Visible = True
+      end>
   end
 end

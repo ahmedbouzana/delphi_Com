@@ -30,6 +30,7 @@ type
     Label3: TLabel;
     Button_imprimer: TButton;
     DBEdit_date_dem_app: TDBEdit;
+    Label5: TLabel;
     procedure Button_supprimerClick(Sender: TObject);
     procedure Button_nouveauClick(Sender: TObject);
     procedure Button_enregistrerClick(Sender: TObject);

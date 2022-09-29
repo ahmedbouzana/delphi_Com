@@ -1,6 +1,6 @@
 object Form_login: TForm_login
-  Left = 658
-  Top = 388
+  Left = 662
+  Top = 391
   BorderStyle = bsNone
   Caption = 'Login'
   ClientHeight = 174

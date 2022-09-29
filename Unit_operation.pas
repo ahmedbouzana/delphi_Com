@@ -8,7 +8,6 @@ uses
 
 type
   TForm_operation = class(TForm)
-    DBGrid_aff: TDBGrid;
     DBEdit_num_aff: TDBEdit;
     DBComboBox_nature_aff: TDBComboBox;
     DateTimePicker_date_aff: TDateTimePicker;
@@ -60,6 +59,7 @@ type
     DBEdit_d_rec_aff: TDBEdit;
     Button_recherche_cpt: TButton;
     Label17: TLabel;
+    DBGrid_affaire: TDBGrid;
     procedure Compteurs1Click(Sender: TObject);
     procedure Fermer1Click(Sender: TObject);
     procedure Changermotdepasse1Click(Sender: TObject);
@@ -73,7 +73,6 @@ type
     procedure Button_nouveau_affClick(Sender: TObject);
     procedure Button_annuler_affClick(Sender: TObject);
     procedure Button_supprimer_affClick(Sender: TObject);
-    procedure DBGrid_affCellClick(Column: TColumn);
     procedure Button_enregistrer_affClick(Sender: TObject);
     procedure DateTimePicker_date_etudeChange(Sender: TObject);
     procedure DateTimePicker_date_recChange(Sender: TObject);
@@ -82,9 +81,12 @@ type
     procedure SelectAll;
     procedure Button_imprimerClick(Sender: TObject);
     procedure DateTimePicker_date_affChange(Sender: TObject);
-    procedure Stoquescompteurs1Click(Sender: TObject);
-    procedure Button_recherche_cptClick(Sender: TObject);
     procedure FormActivate(Sender: TObject);
+    procedure DBGrid_affCellClick(Column: TColumn);
+    procedure Button_recherche_cptClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure DBGrid_affaireDblClick(Sender: TObject);
+    procedure DBGrid_affaireCellClick(Column: TColumn);
 
   private
     { Private declarations }
@@ -171,8 +173,8 @@ end;
 procedure TForm_operation.Button_nouveau_affClick(Sender: TObject);
 var currentDate: TDateTime;
 begin
-    DataModule1.ADOQuery_operation.Cancel;
-    DataModule1.ADOQuery_operation.Insert;
+    DataModule1.ADOQuery_affaire.Cancel;
+    DataModule1.ADOQuery_affaire.Insert;
 
     currentDate := Now;
     DateTimePicker_date_aff.Format := '';
@@ -187,35 +189,25 @@ end;
 
 procedure TForm_operation.Button_annuler_affClick(Sender: TObject);
 begin
-DataModule1.ADOQuery_operation.Cancel;
+DataModule1.ADOQuery_affaire.Cancel;
 end;
 
 procedure TForm_operation.Button_supprimer_affClick(Sender: TObject);
 begin
-if(not DataModule1.ADOQuery_operation.IsEmpty) then
+DataModule1.ADOQuery_affaire.Cancel;
+if(not DataModule1.ADOQuery_affaire.IsEmpty) then
     begin
       if MessageDlg('Vouler cous supprimer cette affaire ?', mtConfirmation, [mbYes, mbNo], 0) = mrYes then
         begin
 
-          DataModule1.ADOQuery_operation.SQL.Text := 'delete from operation where id_aff = '+ DBEdit_id_aff.Text;
-          DataModule1.ADOQuery_operation.ExecSQL;
+          DataModule1.ADOQuery_affaire.SQL.Text := 'delete from operation where id_aff = '+ DBEdit_id_aff.Text;
+          DataModule1.ADOQuery_affaire.ExecSQL;
 
           SelectAll();
       end
     end
   else
     ShowMessage('Rien a supprimer !!');
-end;
-
-procedure TForm_operation.DBGrid_affCellClick(Column: TColumn);
-begin
-if(not DataModule1.ADOQuery_operation.IsEmpty) then
-    begin
-      DataModule1.ADOQuery_abonne.Close;
-      DataModule1.ADOQuery_abonne.SQL.Text := 'select * from operation, abonne  where ref_ab_aff = ref_ab and num_aff ='''+ DBEdit_num_aff.Text+''' ';
-      DataModule1.ADOQuery_abonne.Open;
-
-  end;
 end;
 
 procedure TForm_operation.Button_enregistrer_affClick(Sender: TObject);
@@ -239,18 +231,18 @@ begin
         date_etude := DateToStr(DateOf(DateTimePicker_date_etude.Date));
       if (DBEdit_id_aff.Text='') then
         begin
-        DataModule1.ADOQuery_operation.SQL.Text := 'INSERT INTO operation (num_aff, ref_ab_aff, code_type_aff, num_cpt, nature_aff, d_enr_aff, d_rec_aff, d_etud_aff, nom_agent, prenom_agent)'+
+        DataModule1.ADOQuery_affaire.SQL.Text := 'INSERT INTO operation (num_aff, ref_ab_aff, code_type_aff, num_cpt, nature_aff, d_enr_aff, d_rec_aff, d_etud_aff, nom_agent, prenom_agent)'+
         ' VALUES (''' + DBEdit_num_aff.Text + ''', ''' + DBEdit_ref_ab.Text + ''', '+ code_type +', ''' + DBEdit_num_cpt.Text + ''', ''' + DBComboBox_nature_aff.Text + ''', ''' + DateToStr(DateOf(DateTimePicker_date_aff.Date)) + ''', ''' + date_rec + ''', ''' + date_etude + ''', ''' + DBEdit_nom_agent.Text + ''', ''' + DBEdit_prenom_agent.Text + ''')';
-        DataModule1.ADOQuery_operation.Cancel;
+        DataModule1.ADOQuery_affaire.Cancel;
         end
       else
       begin
-        DataModule1.ADOQuery_operation.SQL.Text := 'update operation'+
+        DataModule1.ADOQuery_affaire.SQL.Text := 'update operation'+
         ' set num_aff = ''' + DBEdit_num_aff.Text + ''' , ref_ab_aff = ''' + DBEdit_ref_ab.Text + ''', code_type_aff = '+ IntToStr(DBLookupComboBox_code_type_aff.KeyValue) +', num_cpt = ''' + DBEdit_num_cpt.Text + ''', nature_aff = ''' + DBComboBox_nature_aff.Text + ''', d_enr_aff = ''' + DateToStr(DateOf(DateTimePicker_date_aff.Date)) + ''', d_rec_aff = ''' + date_rec + ''', d_etud_aff =  ''' + date_etude + ''', nom_agent = ''' + DBEdit_nom_agent.Text + ''', prenom_agent = ''' + DBEdit_prenom_agent.Text + ''' '+
         ' where id_aff = '+DBEdit_id_aff.Text+'';
         end;
 
-      DataModule1.ADOQuery_operation.ExecSQL;
+      DataModule1.ADOQuery_affaire.ExecSQL;
 
       SelectAll();
     end;
@@ -279,9 +271,9 @@ begin
       SelectAll()
     else
     begin
-      DataModule1.ADOQuery_operation.Close;
-      DataModule1.ADOQuery_operation.SQL.Text := 'select * from operation, type_cpt, abonne where ref_ab_aff = '''+ recherche +''' and code_type_aff = code_type and ref_ab_aff = ref_ab order by d_enr_aff desc';
-      DataModule1.ADOQuery_operation.Open;
+      DataModule1.ADOQuery_affaire.Close;
+      DataModule1.ADOQuery_affaire.SQL.Text := '  select * from operation left join stock_cpt on num_cpt = num_ser left join abonne on ref_ab_aff = ref_ab where ref_ab_aff = '''+ recherche +''' ';
+      DataModule1.ADOQuery_affaire.Open;
      end;
 end;
 
@@ -294,23 +286,23 @@ begin
       SelectAll()
     else
     begin
-      DataModule1.ADOQuery_operation.Close;
-      DataModule1.ADOQuery_operation.SQL.Text := 'select * from operation, type_cpt, abonne where num_aff = '''+recherche+''' and code_type_aff = code_type and ref_ab_aff = ref_ab order by d_enr_aff desc';
-      DataModule1.ADOQuery_operation.Open;
+      DataModule1.ADOQuery_affaire.Close;
+      DataModule1.ADOQuery_affaire.SQL.Text := '  select * from operation left join stock_cpt on num_cpt = num_ser left join abonne on ref_ab_aff = ref_ab where num_aff = '''+recherche+''' ';
+      DataModule1.ADOQuery_affaire.Open;
      end;
 end;
 
 procedure TForm_operation.SelectAll();
 begin
-      DataModule1.ADOQuery_operation.Close;
-      DataModule1.ADOQuery_operation.SQL.Text := 'select * from operation, type_cpt, abonne where code_type_aff = code_type and ref_ab_aff = ref_ab order by d_enr_aff desc';
-      DataModule1.ADOQuery_operation.Open;
+      DataModule1.ADOQuery_affaire.Close;
+      DataModule1.ADOQuery_affaire.SQL.Text := '  select * from operation left join stock_cpt on num_cpt = num_ser left join abonne on ref_ab_aff = ref_ab';
+      DataModule1.ADOQuery_affaire.Open;
 end;
 
 procedure TForm_operation.Button_imprimerClick(Sender: TObject);
 begin
 QuickReport_affaire.Preview;
-//if(not DataModule1.ADOQuery_operation.IsEmpty) then
+//if(not DataModule1.ADOQuery_affaire.IsEmpty) then
     //QuickReport_affaire.Preview
  // else
     //ShowMessage('Rien a imprimer !!');
@@ -321,9 +313,22 @@ begin
 DBEdit_d_enr_aff.Text := DateToStr(DateOf(DateTimePicker_date_aff.Date));
 end;
 
-procedure TForm_operation.Stoquescompteurs1Click(Sender: TObject);
+procedure TForm_operation.FormActivate(Sender: TObject);
+var currentDate: TDateTime;
 begin
-Form_stoque_cpt.Show;
+
+end;
+
+procedure TForm_operation.DBGrid_affCellClick(Column: TColumn);
+begin
+       if(not DataModule1.ADOQuery_affaire.IsEmpty) then
+    begin
+    //DataModule1.ADOQuery_affaire.Cancel;
+      DataModule1.ADOQuery_abonne.Close;
+      DataModule1.ADOQuery_abonne.SQL.Text := 'select * from operation, abonne  where ref_ab_aff = ref_ab and num_aff ='''+ DBEdit_num_aff.Text+''' ';
+      DataModule1.ADOQuery_abonne.Open;
+
+  end;
 end;
 
 procedure TForm_operation.Button_recherche_cptClick(Sender: TObject);
@@ -331,20 +336,32 @@ begin
 Form_stoque_cpt.Show;
 end;
 
-procedure TForm_operation.FormActivate(Sender: TObject);
+procedure TForm_operation.FormCreate(Sender: TObject);
 var currentDate: TDateTime;
 begin
-  DataModule1.ADOQuery_operation.Cancel;
-    DataModule1.ADOQuery_operation.Insert;
+end;
 
-    currentDate := Now;
-    DateTimePicker_date_aff.Format := '';
-    DateTimePicker_date_aff.Date := currentDate;
-    DBEdit_num_aff.Text := StringReplace(TimeToStr(currentDate), ':', '', [rfReplaceAll, rfIgnoreCase]) ;
+procedure TForm_operation.DBGrid_affaireDblClick(Sender: TObject);
+begin
+       if(not DataModule1.ADOQuery_affaire.IsEmpty) then
+    begin
+    //DataModule1.ADOQuery_affaire.Cancel;
+      DataModule1.ADOQuery_abonne.Close;
+      DataModule1.ADOQuery_abonne.SQL.Text := 'select * from operation, abonne  where ref_ab_aff = ref_ab and num_aff ='''+ DBEdit_num_aff.Text+''' ';
+      DataModule1.ADOQuery_abonne.Open;
+      end;
+end;
 
-    DataModule1.ADOQuery_abonne.Close;
-    DataModule1.ADOQuery_abonne.SQL.Text := 'select * from abonne';
-    DataModule1.ADOQuery_abonne.Open;
+procedure TForm_operation.DBGrid_affaireCellClick(Column: TColumn);
+begin
+if(not DataModule1.ADOQuery_affaire.IsEmpty) then
+    begin
+    //DataModule1.ADOQuery_affaire.Cancel;
+      DataModule1.ADOQuery_abonne.Close;
+      DataModule1.ADOQuery_abonne.SQL.Text := 'select * from operation, abonne  where ref_ab_aff = ref_ab and num_aff ='''+ DBEdit_num_aff.Text+''' ';
+      DataModule1.ADOQuery_abonne.Open;
+
+  end;
 end;
 
 end.
